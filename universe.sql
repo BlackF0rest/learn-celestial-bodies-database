@@ -54,7 +54,8 @@ CREATE TABLE public.galaxy (
     sizekm integer,
     distancefromearth integer,
     description text,
-    has_black_hole boolean
+    has_black_hole boolean,
+    ispretty boolean
 );
 
 
@@ -83,6 +84,41 @@ ALTER SEQUENCE public.galaxy_galaxyid_seq OWNED BY public.galaxy.galaxyid;
 
 
 --
+-- Name: star; Type: TABLE; Schema: public; Owner: freecodecamp
+--
+
+CREATE TABLE public.star (
+    starid integer NOT NULL,
+    name character varying,
+    galaxyid integer
+);
+
+
+ALTER TABLE public.star OWNER TO freecodecamp;
+
+--
+-- Name: star_starid_seq; Type: SEQUENCE; Schema: public; Owner: freecodecamp
+--
+
+CREATE SEQUENCE public.star_starid_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.star_starid_seq OWNER TO freecodecamp;
+
+--
+-- Name: star_starid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
+--
+
+ALTER SEQUENCE public.star_starid_seq OWNED BY public.star.starid;
+
+
+--
 -- Name: galaxy galaxyid; Type: DEFAULT; Schema: public; Owner: freecodecamp
 --
 
@@ -90,7 +126,20 @@ ALTER TABLE ONLY public.galaxy ALTER COLUMN galaxyid SET DEFAULT nextval('public
 
 
 --
+-- Name: star starid; Type: DEFAULT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star ALTER COLUMN starid SET DEFAULT nextval('public.star_starid_seq'::regclass);
+
+
+--
 -- Data for Name: galaxy; Type: TABLE DATA; Schema: public; Owner: freecodecamp
+--
+
+
+
+--
+-- Data for Name: star; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
 
@@ -103,11 +152,34 @@ SELECT pg_catalog.setval('public.galaxy_galaxyid_seq', 1, false);
 
 
 --
+-- Name: star_starid_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
+--
+
+SELECT pg_catalog.setval('public.star_starid_seq', 1, false);
+
+
+--
 -- Name: galaxy galaxy_pkey; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
 --
 
 ALTER TABLE ONLY public.galaxy
     ADD CONSTRAINT galaxy_pkey PRIMARY KEY (galaxyid);
+
+
+--
+-- Name: star star_pkey; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT star_pkey PRIMARY KEY (starid);
+
+
+--
+-- Name: star star_galaxyid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT star_galaxyid_fkey FOREIGN KEY (galaxyid) REFERENCES public.galaxy(galaxyid);
 
 
 --
