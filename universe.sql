@@ -51,10 +51,10 @@ CREATE TABLE public.galaxy (
     galaxyid integer NOT NULL,
     name character varying,
     galaxyagemillions numeric,
-    sizekm integer,
-    distancefromearth integer,
+    sizelj integer,
+    distancefromearthlj integer,
     description text,
-    has_black_hole boolean,
+    hasblackhole boolean,
     ispretty boolean
 );
 
@@ -136,26 +136,32 @@ ALTER TABLE ONLY public.star ALTER COLUMN starid SET DEFAULT nextval('public.sta
 -- Data for Name: galaxy; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.galaxy VALUES (1, 'Oculus', 150, 80, 56, 'Eine Sternensystem, welches die Virtuelle Realität benutzt', false, true);
+INSERT INTO public.galaxy VALUES (2, 'Andromeda', 10000, 220000, 2537000, 'A spiral galaxy and the nearest major galaxy to the Milky Way.', true, true);
+INSERT INTO public.galaxy VALUES (3, 'Triangulum', 3000, 60000, 3000000, 'A spiral galaxy and the third-largest member of the Local Group.', true, true);
+INSERT INTO public.galaxy VALUES (4, 'Whirlpool', 4000, 76000, 23000000, 'A grand-design spiral galaxy interacting with a smaller galaxy.', true, true);
+INSERT INTO public.galaxy VALUES (5, 'Sombrero', 13000, 50000, 29000000, 'A lenticular galaxy with a prominent dust lane in the constellation Virgo.', true, true);
 
 
 --
 -- Data for Name: star; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.star VALUES (1, 'omega 6', 1);
 
 
 --
 -- Name: galaxy_galaxyid_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.galaxy_galaxyid_seq', 1, false);
+SELECT pg_catalog.setval('public.galaxy_galaxyid_seq', 5, true);
 
 
 --
 -- Name: star_starid_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.star_starid_seq', 1, false);
+SELECT pg_catalog.setval('public.star_starid_seq', 1, true);
 
 
 --
